@@ -1,0 +1,29 @@
+[
+    {
+        "videoId": 1,
+        "title": "demo video",
+        "date": "2022-04-25T11:04:25.802Z",
+        "size": 1216194,
+        "mime": "video/mp4",
+        "link": "demo-video.mp4",
+        "userId": 1
+    },
+    {
+        "videoId": 2,
+        "title": "yaxshi video",
+        "date": "2022-04-25T11:04:25.802Z",
+        "size": 1216194,
+        "mime": "video/mp4",
+        "link": "demo-video.mp4",
+        "userId": 1
+    },
+    {
+        "videoId": 3,
+        "title": "Tabrik videosi",
+        "date": "2022-04-25T11:04:25.802Z",
+        "size": 8519953,
+        "mime": "video/mp4",
+        "link": "tabrik.mp4",
+        "userId": 2
+    }
+]
