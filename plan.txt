@@ -1,0 +1,61 @@
+/*
+    PLAN
+
+    data model
+    API architecture
+    file structure + dependencies
+
+
+    data model
+    user
+        userId username password avatar img
+    
+    video
+        videoId, videTitle videoDateTime videoSize videoMimeType userId videoLink
+
+    API architecture
+        public routes
+            /users  GET                                           -> [User]
+            /videos GET [query: userId, search, pagination, sort] -> [Video] 
+            /checkToken GET [query: token]
+
+            /login      POST [body: username, password]         -> AuthResponse!
+            /register   POST [body: username, password, avatar] -> AuthResponse!
+        private routes
+            /admin/videos GET                                                         -> [Video] 
+            /admin/videos POST   [body: videoTitle, videName, file | header: Token] -> Response!
+            /admin/videos PUT    [params: videoId | body: videoTitle | header: Token] -> Response!
+            /admin/videos DELETE [params: videoId | header: Token] -> Response!
+
+
+    User {
+        userId: Int!
+        username: String!
+        avatar: String!
+    }
+
+    Video {
+        videoId: Int!
+        videoTitle: String!
+        videoLink: String!
+        videDate: String!
+        videoSize: Int!
+        videType: String!
+        user: User
+    }
+
+    AuthResponse {
+        status: Int!
+        message: String!
+        token: String
+        data: User
+    }
+
+    Any = Video | User
+
+    Response {
+        status: Int!
+        message: String!
+        data: Any
+    }
+*/

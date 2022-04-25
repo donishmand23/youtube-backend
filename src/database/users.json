@@ -1,0 +1,14 @@
+[
+    {
+        "userId": 1,
+        "username": "alisher",
+        "password": "6e656676e46fbe15e5f74882aff541c6707547014580543ed6040ac7f17a6880",
+        "avatar": "alisher.jpg"
+    },
+    {
+        "userId": 2,
+        "username": "nodir",
+        "password": "6e656676e46fbe15e5f74882aff541c6707547014580543ed6040ac7f17a6880",
+        "avatar": "nodir.jpg"
+    }
+]
