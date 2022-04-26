@@ -81,6 +81,43 @@ const POST = (req, res, next) => {
     }
 }
 
+const PUT = (req, res, next) => {
+    try {
+
+        const users = req.readFile('users')
+        const videos = req.readFile('videos')
+        const title = req.body.title.trim()
+
+        const video = videos.find(video => video.videoId == req.params.videoId && video.userId == req.userId)
+
+        if (!video) {
+            return next(new NotFoundError(404, "There is no such video!"))
+        }
+
+        if (!title || title.length > 50) {
+            return next(new ValidationError(400, "Invalid title!"))
+        }
+
+        video.title = title || video.title
+
+        videos.push(req.body)
+        req.writeFile('videos', videos)
+
+        video.user = users.find(user => user.userId == req.userId)
+        delete video.userId
+        delete video.user.password
+
+        return res.status(200).json({
+            status: 200,
+            message: "The video successfully updated!",
+            data: video
+        })
+
+    } catch (error) {
+        return next(new InternalServerError(500, error.message))
+    }
+}
+
 export default {
-    GET, POST
+    GET, POST, PUT
 }
