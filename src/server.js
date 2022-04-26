@@ -1,3 +1,4 @@
+import fileUpload from "express-fileupload"
 import express from "express"
 import path from "path"
 import cors from "cors"
@@ -17,6 +18,7 @@ app.use(cors({ origin: '*'}))
 app.use(modelMiddleware({ databasePath: path.join(process.cwd(), 'src', 'database')}))
 app.use(express.static(path.join(process.cwd(), 'uploads')))
 app.use(express.json())
+app.use(fileUpload())
 
 app.use(userRouter)
 app.use(videoRouter)

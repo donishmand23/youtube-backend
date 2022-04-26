@@ -1,8 +1,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
-
-process.env.JWT_EXP = 60 * 60 * 60 * 24
+process.env.JWT_EXP = 1000 * 60 * 60 * 1
 
 process.DEFAULTS = {}
 process.DEFAULTS.pagination = {}
