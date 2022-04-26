@@ -14,10 +14,10 @@
         videoId, videTitle videoDateTime videoSize videoMimeType userId videoLink
 
     API architecture
-        public routes
-            /  GET                                           -> [User]
-            /videos GEusersT [query: userId, search, pagination, sort] -> [Video] 
-            /checkToken GET [query: token]
+        public routes 
+            /users  GET                                                 -> [User]
+            /videos GET users [query: userId, search, pagination, sort] -> [Video] 
+            /checkToken GET [query: token]                              -> TokenResponse
 
             /login      POST [body: username, password]         -> AuthResponse!
             /register   POST [body: username, password, avatar] -> AuthResponse!
@@ -57,5 +57,13 @@
         status: Int!
         message: String!
         data: Any
+    }
+
+    TokenResponse {
+        status: Int!
+        message: String!
+        tokenExpired: Boolean!
+        tokenIsValid: Boolean!
+        tokenExpirationTimeRemaining: Int
     }
 */
