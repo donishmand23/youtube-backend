@@ -1,5 +1,4 @@
-import { ValidationError, InternalServerError } from '../utils/errors.js'
-import JWT from '../utils/jwt.js'
+import { NotFoundError, ValidationError, InternalServerError } from '../utils/errors.js'
 import path from 'path'
 
 const GET = (req, res, next) => {
@@ -99,8 +98,6 @@ const PUT = (req, res, next) => {
         }
 
         video.title = title || video.title
-
-        videos.push(req.body)
         req.writeFile('videos', videos)
 
         video.user = users.find(user => user.userId == req.userId)
@@ -118,6 +115,36 @@ const PUT = (req, res, next) => {
     }
 }
 
+const DELETE = (req, res, next) => {
+    try {
+
+        const users = req.readFile('users')
+        const videos = req.readFile('videos')
+
+        const videoIndex = videos.findIndex(video => video.videoId == req.params.videoId && video.userId == req.userId)
+
+        if (videoIndex == -1) {
+            return next(new NotFoundError(404, "There is no such video!"))
+        }
+
+        const [ video ] = videos.splice(videoIndex, 1)
+        req.writeFile('videos', videos)
+
+        video.user = users.find(user => user.userId == req.userId)
+        delete video.userId
+        delete video.user.password
+
+        return res.status(200).json({
+            status: 200,
+            message: "The video successfully deleted!",
+            data: video
+        })
+
+    } catch (error) {
+        return next(new InternalServerError(500, error.message))
+    }
+}
+
 export default {
-    GET, POST, PUT
+    GET, POST, PUT, DELETE
 }
