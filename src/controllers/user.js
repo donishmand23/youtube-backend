@@ -1,4 +1,4 @@
-import { AuthorizationError, InternalServerError, BadRequestError } from '../utils/errors.js'
+import { ValidationError, AuthorizationError, InternalServerError, BadRequestError } from '../utils/errors.js'
 import JWT from '../utils/jwt.js'
 import sha256 from 'sha256'
 import path from 'path'
@@ -18,10 +18,6 @@ const GET = (req, res, next) => {
 const TOKEN = (req, res, next) => {
     try {
         const { token } = req.query
-
-        if (!token) {
-            return next(new BadRequestError(400, 'The token is required!'))
-        }
 
         const { userId, ip, agent, exp } = JWT.verify(token)
 

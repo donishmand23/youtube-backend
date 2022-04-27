@@ -45,10 +45,6 @@ const POST = (req, res, next) => {
             return next(new ValidationError(400, "Invalid video format!"))
         }
 
-        if (!req.body.title || req.body.title.length > 50) {
-            return next(new ValidationError(400, "Invalid title!"))
-        }
-
         const users = req.readFile('users')
         const videos = req.readFile('videos')
 
@@ -85,17 +81,8 @@ const PUT = (req, res, next) => {
 
         const users = req.readFile('users')
         const videos = req.readFile('videos')
-        const title = req.body.title.trim()
 
         const video = videos.find(video => video.videoId == req.params.videoId && video.userId == req.userId)
-
-        if (!video) {
-            return next(new NotFoundError(404, "There is no such video!"))
-        }
-
-        if (!title || title.length > 50) {
-            return next(new ValidationError(400, "Invalid title!"))
-        }
 
         video.title = title || video.title
         req.writeFile('videos', videos)
